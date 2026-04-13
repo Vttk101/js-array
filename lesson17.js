@@ -20,9 +20,9 @@ const checkIsBalanced = (expression) => {
     }
     return stack.length === 0;
 }
-
 const expression = '{}';
 console.log(checkIsBalanced(expression));
+
 
 // Решение из урок с одним видом скобок
 onst checkIsBalanced = (expression) => {
@@ -33,20 +33,16 @@ onst checkIsBalanced = (expression) => {
       stack.push(symbol)
     }
     else if (symbol === ')') {
-      
       if (!stack.pop()) {
-
         return false
       }
     }
   }
   return stack.length === 0
-
 }
-
 const expression = '(>)>'
-
 console.log(checkIsBalanced(expression))
+
 
 //Решение учителя
 const openingSymbols = ['(', '[', '{', '<']  //вводятся массив открывающих скобок
@@ -71,44 +67,54 @@ export default (str) => {           // названия f-ии нет, на вх
   for (const symbol of str) {       // перебираем строку циклом for, где symbol - проверяемый элемент
     
     if (isOpeningSymbol(symbol)) {  //если symbol есть в массиве - открывающихся скобок (задейст.1-ю вспом.f-ию)
+      
       // вводим константу ЗакрытыйСимвол = скобку либо null 
       // (2-я f-я переберёт массив закрывающих скобок и выдаст: скобку или null)
       const closingSymbol = getClosingSymbolFor(symbol)
       stack.push(closingSymbol)       // вложим в Cтек этот ЗакрытыйСимвол
     }
-    else {                            // иначе вводится новая константа = стек с удаленным последним элементом
+    else {                    // иначе вводится новая константа = стек с удалением последнего эл-та
       const lastSavedSymbol = stack.pop()
-      if (symbol !== lastSavedSymbol) {  //
+      if (symbol !== lastSavedSymbol) {  //???? - если символ не равен stack.pop() 
         return false
       }
     }
   }
-
   return stack.length === 0
 }
 
-// Моё недоделанное решение
-const checkIsBalanced = (expression) => {
-    const alfa = ['(', '[', '{', '<']
-    const omega = [')', ']', '}', '>']
-    const stack = []
-    for (const symbol of expression) {
-        
-        let num = omega[alfa.indexOf(symbol)]
-        
-        if (alfa.includes(symbol) === true) {
-            
-            stack.push(symbol)
-        } 
-        else if (symbol === num) {
-            stack.pop()
-        }
-        console.log(num)
+// Моё недоделанное решение через idexOF
+const open = ['(', '[', '{', '<']
+const close = [')', ']', '}', '>']
+
+const closePerebor = (symbol) => {
+    let XXX = open[close.indexOf(symbol)] // определяем сответствие закрытой и открытой скобки по индексу
+    for (const obratSymbol of close){
+        if (stack.incudes(XXX) === true)
     }
-    return stack.length === 0
-    
 }
 
-const expression = '{}'
+const checkIsBalanced = (expression) => {
+    
+    
+    const stack = []
+    
+    for (const symbol of expression) {
+        
+        let openKuku = open.includes(symbol)
+        let closeTut = close[open.indexOf(symbol)]
+        
+        if (openKuku === true) {
+            let pushik = stack.push(symbol)
+        } 
+        else if (symbol === closeTut) {
+            stack.pop()
+        }
+        console.log(closeTut)
+        console.log(stack)
+    }
+    return stack.length === 0
+}
 
+const expression = '{<>}'
 console.log(checkIsBalanced(expression))

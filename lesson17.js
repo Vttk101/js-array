@@ -49,30 +49,36 @@ const expression = '(>)>'
 console.log(checkIsBalanced(expression))
 
 //Решение учителя
-const openingSymbols = ['(', '[', '{', '<']
-const closingSymbols = [')', ']', '}', '>']
+const openingSymbols = ['(', '[', '{', '<']  //вводятся массив открывающих скобок
+const closingSymbols = [')', ']', '}', '>']  //массив закрывающих скобок
 
-// BEGIN
+// 1-я вспом. f-ия будет находить, есть ли проверяемый symbol в массиве - открывающихся скобок 
 const isOpeningSymbol = symbol => openingSymbols.includes(symbol)
+
+// 2-я вспом. f-ия будет перебирать массив закрывающих скобок
 const getClosingSymbolFor = (symbol) => {
   for (let i = 0; i < closingSymbols.length; i += 1) {
-    if (openingSymbols[i] === symbol) {
-      return closingSymbols[i]
+    if (openingSymbols[i] === symbol) {   // если i-элемент массива === проверяемому symbol
+      return closingSymbols[i]            // возвращается этот i
     }
   }
-  return null
+  return null                              //в противном случае возвращается null
 }
 
-export default (str) => {
-  const stack = []
-  for (const symbol of str) {
-    if (isOpeningSymbol(symbol)) {
+// осн. f-ия 
+export default (str) => {           // названия f-ии нет, на вход поступает строка-str
+  const stack = []                  // инициализируем пустой массив
+  for (const symbol of str) {       // перебираем строку циклом for, где symbol - проверяемый элемент
+    
+    if (isOpeningSymbol(symbol)) {  //если symbol есть в массиве - открывающихся скобок (задейст.1-ю вспом.f-ию)
+      // вводим константу ЗакрытыйСимвол = скобку либо null 
+      // (2-я f-я переберёт массив закрывающих скобок и выдаст: скобку или null)
       const closingSymbol = getClosingSymbolFor(symbol)
-      stack.push(closingSymbol)
+      stack.push(closingSymbol)       // вложим в Cтек этот ЗакрытыйСимвол
     }
-    else {
+    else {                            // иначе вводится новая константа = стек с удаленным последним элементом
       const lastSavedSymbol = stack.pop()
-      if (symbol !== lastSavedSymbol) {
+      if (symbol !== lastSavedSymbol) {  //
         return false
       }
     }

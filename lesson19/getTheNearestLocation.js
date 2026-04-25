@@ -1,3 +1,6 @@
+// Мой вариант --- РАБОТАЕТ
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
+
 const getDistance = ([x1, y1], [x2, y2]) => {
   const xs = x2 - x1
   const ys = y2 - y1
@@ -5,18 +8,59 @@ const getDistance = ([x1, y1], [x2, y2]) => {
   return Math.sqrt(xs ** 2 + ys ** 2)
 }
 
-const locations = [
-  ['Park', [10, 5]],
-  ['Sea', [1, 3]],
-  ['Museum', [8, 4]],
-]
-
-const currentPoint = [5, 5]
-
-const getTheNearestLocation = (locations, currentPoint) => {
+// BEGIN (write your solution here)
+export const getTheNearestLocation = (locations, currentPoint) => {
+    if (locations.length === 0) {
+        return null
+    }
     
+    let result = []
+    
+    for(const item of locations) {
+        const kuk = getDistance(currentPoint, item[1])
+        
+        result.push(kuk)
+        
+    }
+    
+    const min = Math.min(...result)
+    const index = result.indexOf(min)
+    return locations[index]
+}
+// END
+
+console.log(getTheNearestLocation (locations, currentPoint)) 
+
+
+// Решение учителя
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
+
+const getDistance = ([x1, y1], [x2, y2]) => {
+  const xs = x2 - x1
+  const ys = y2 - y1
+
+  return Math.sqrt(xs ** 2 + ys ** 2)
 }
 
-console.log(getDistance(currentPoint, [10, 5]))
-console.log(getDistance(currentPoint, [1, 3]))
-console.log(getDistance(currentPoint, [8, 4]))
+// BEGIN
+export const getTheNearestLocation = (locations, currentPoint) => {
+  if (locations.length === 0) {
+    return null
+  }
+
+  let [nearestLocation] = locations
+  const [, nearestPoint] = nearestLocation
+  let lowestDistance = getDistance(currentPoint, nearestPoint)
+
+  for (const location of locations) {
+    const [, point] = location
+    const distance = getDistance(currentPoint, point)
+    if (distance < lowestDistance) {
+      lowestDistance = distance
+      nearestLocation = location
+    }
+  }
+
+  return nearestLocation
+}
+// END

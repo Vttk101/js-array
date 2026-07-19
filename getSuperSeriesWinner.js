@@ -1,6 +1,6 @@
 //Суперсерия Канада-СССР – это 8 товарищеских хоккейных матчей, проводившихся между командами СССР и Канады в 72 (первая суперсерия) и в 74 годах (вторая суперсерия). В этом задании вам предстоит написать функцию, которая вычисляет команду, выигравшую суперсерию.
 
-//Моё решение
+//Моё решение 1
 const getSuperSeriesWinner = (scores) => {
     let result = 0
     for(const play of scores) {
@@ -14,6 +14,25 @@ const getSuperSeriesWinner = (scores) => {
     if (result >= 1) {
         return 'canada'
     }
+    else if (result < 0) {
+        return 'ussr'
+    }
+    else {
+        return null
+    }
+}
+export default getSuperSeriesWinner
+
+//Моё решение 2
+const getSuperSeriesWinner = (scores) => {
+    let result = 0
+    for (const game of scores) {
+       const schet = Math.sign(game[0] - game[1])
+       result = result + schet
+    }
+    if (result > 0) {
+        return 'canada'
+    } 
     else if (result < 0) {
         return 'ussr'
     }

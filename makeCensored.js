@@ -2,7 +2,7 @@
 //которая заменяет каждое вхождение указанных слов в предложении на последовательность $#%! 
 // и возвращает полученную строку. Аргументы: Текст и [Набор стоп слов]
 
-//моё решение
+//моё решение 1
 export const progon = (text, stop) => {
     let result = []
     for (const word of text) {
@@ -22,6 +22,20 @@ const makeCensored = (sentence, stoparr) => {
         
     } 
     return sentenceArr.join(separator)
+}
+export default makeCensored
+
+//Моё решение2
+const makeCensored = (sentence, stopWords) => {
+    
+    const arrSentence = sentence.split(' ')
+    const newArrSentence = []
+    
+    for (const word of arrSentence) {
+        (stopWords.includes(word)) ? newArrSentence.push('$#%!') : newArrSentence.push(word)
+        }
+    
+    return newArrSentence.join(' ')
 }
 export default makeCensored
 
